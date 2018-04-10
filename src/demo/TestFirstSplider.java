@@ -1,33 +1,38 @@
 package demo;
-
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.processor.PageProcessor;
-import us.codecraft.webmagic.processor.example.GithubRepoPageProcessor;
+import us.codecraft.webmagic.selector.Html;
+import us.codecraft.webmagic.selector.Selectable;
 
 public class TestFirstSplider implements PageProcessor {
 
     private Site site = Site.me().setRetryTimes(3).setSleepTime(100);
 
-    @Override
-    public void process(Page page) {
-        page.addTargetRequests(page.getHtml().links().regex("(https://github\\.com/\\w+/\\w+)").all());
-        page.putField("author", page.getUrl().regex("https://github\\.com/(\\w+)/.*").toString());
-        page.putField("name", page.getHtml().xpath("//h1[@class='public']/strong/a/text()").toString());
-        if (page.getResultItems().get("name")==null){
-            //skip this page
-            page.setSkip(true);
+    @Override  
+    public void process(Page page) {  
+        Html html = page.getHtml();
+		page.addTargetRequests(html.css("div.pager-content").links().all());  
+        BaozouNews news = new BaozouNews();  
+        Selectable xpath = html.xpath("//a[@class='article-author-name']/text()");
+        //多个获取值，只保存了一个
+        news.setAuthor(xpath.toString());  
+        Selectable xpath2 = html.xpath("//div[@class='article article-text']/@data-text");
+        news.setContent(xpath2.toString());  
+        news.setTime(html.xpath("//span[@class='article-date']/text()").toString());  
+        if(news.getTime() == null) {
+        	page.setSkip(true);
         }
-        page.putField("readme", page.getHtml().xpath("//div[@id='readme']/tidyText()"));
-    }
-
-    @Override
-    public Site getSite() {
-        return site;
-    }
+        page.putField("news", news);  
+    }  
+  
+    @Override  
+    public Site getSite() {  
+        return site;  
+    }  
 
     public static void main(String[] args) {
-        Spider.create(new GithubRepoPageProcessor()).addUrl("https://github.com/code4craft").thread(5).run();
+        Spider.create(new TestFirstSplider()).addUrl("http://baozoumanhua.com/text").thread(5).run();
     }
 }
