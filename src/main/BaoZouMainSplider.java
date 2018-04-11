@@ -11,7 +11,7 @@ import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Html;
 import us.codecraft.webmagic.selector.Selectable;
 
-public class TestFirstSplider implements PageProcessor {
+public class BaoZouMainSplider implements PageProcessor {
 
     private Site site = Site.me().setRetryTimes(3).setSleepTime(100);
 
@@ -49,6 +49,6 @@ public class TestFirstSplider implements PageProcessor {
         return site;  
     }  
     public static void main(String[] args) {
-        Spider.create(new TestFirstSplider()).addUrl("http://baozoumanhua.com/text").addPipeline(new UserDefineFilePipeline("E:\\baozou.txt")).thread(5).run();
+        Spider.create(new BaoZouMainSplider()).addUrl("http://baozoumanhua.com/text").addPipeline(new UserDefineFilePipeline("E:\\baozou.txt")).thread(5).run();
     }
 }
