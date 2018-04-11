@@ -25,9 +25,7 @@ public class UserDefineFilePipeline implements Pipeline{
     @Override
     public void process(ResultItems resultItems, Task task) {
     	List<BaoZouItems> news = resultItems.get("news"); 
-        try {
-        	FileWriter fw = new FileWriter(baozou,true);
-            BufferedWriter bw = new BufferedWriter(fw);
+        try (FileWriter fw = new FileWriter(baozou,true);BufferedWriter bw = new BufferedWriter(fw)){
             for (BaoZouItems baozouNews : news) {
             	bw.write("作者：\t"+baozouNews.getAuthor()+"\r\n");
             	bw.write("时间：\t"+baozouNews.getTime()+"\r\n");
@@ -37,8 +35,6 @@ public class UserDefineFilePipeline implements Pipeline{
             			+ "----------------------------------------------");
             	bw.write("\r\n");
 			}
-            bw.close(); 
-            fw.close();
         } catch (IOException e) {
             logger.warn("write file error", e);
         }
