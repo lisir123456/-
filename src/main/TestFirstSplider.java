@@ -1,7 +1,9 @@
-package demo;
+package main;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.BaoZouItems;
+import pipeline.UserDefineFilePipeline;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
@@ -19,9 +21,9 @@ public class TestFirstSplider implements PageProcessor {
 		page.addTargetRequests(html.css("div.pager-content").links().all());  
         Selectable xpath = html.xpath("//div[@class='article article-text']");
         List<String> all = xpath.all();
-        List<BaozouNews> baozouNews = new ArrayList<BaozouNews>();
+        List<BaoZouItems> baozouNews = new ArrayList<BaoZouItems>();
         for (String string : all) {
-        	BaozouNews news = new BaozouNews(); 
+        	BaoZouItems news = new BaoZouItems(); 
         	Html partHtml = new Html(string);
         	String author = partHtml.xpath("//a[@class='article-author-name']/text()").toString();  
         	if(author == null) {
