@@ -24,6 +24,7 @@ public class UserDefineFilePipeline implements Pipeline{
 
     @Override
     public void process(ResultItems resultItems, Task task) {
+    	//获取每一页中的数据
     	List<BaoZouItems> news = resultItems.get("news"); 
         try (FileWriter fw = new FileWriter(baozou,true);BufferedWriter bw = new BufferedWriter(fw)){
             for (BaoZouItems baozouNews : news) {

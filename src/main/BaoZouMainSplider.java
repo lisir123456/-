@@ -19,13 +19,18 @@ public class BaoZouMainSplider implements PageProcessor {
     public void process(Page page) {  
         Html html = page.getHtml();
 		page.addTargetRequests(html.css("div.pager-content").links().all());  
-        Selectable xpath = html.xpath("//div[@class='article article-text']");
+        //获取所有div块（每个div块有个一想要的信息）
+		Selectable xpath = html.xpath("//div[@class='article article-text']");
         List<String> all = xpath.all();
         List<BaoZouItems> baozouNews = new ArrayList<BaoZouItems>();
+        //遍历div块
         for (String string : all) {
         	BaoZouItems news = new BaoZouItems(); 
+        	//转换为html
         	Html partHtml = new Html(string);
+        	//解析数据
         	String author = partHtml.xpath("//a[@class='article-author-name']/text()").toString();  
+        	//特殊处理，当用户为匿名时，所在元素为span而不是a
         	if(author == null) {
         		author = partHtml.xpath("//span[@class='article-author-name']/text()").toString();  
         	}
@@ -33,6 +38,7 @@ public class BaoZouMainSplider implements PageProcessor {
             Selectable content = partHtml.xpath("//div[@class='article article-text']/@data-text");
             news.setContent(content.toString());  
             news.setTime(html.xpath("//span[@class='article-date']/text()").toString());  
+            //当时间为null，代表为垃圾数据
             if(news.getTime() != null) {
             	baozouNews.add(news);
             }
