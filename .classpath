@@ -21,10 +21,12 @@
 	<classpathentry kind="lib" path="lib/jsoup-1.8.3.jar"/>
 	<classpathentry kind="lib" path="lib/junit-4.11.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
-	<classpathentry kind="lib" path="lib/slf4j-api-1.7.6.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api-1.7.6.jar" sourcepath="C:/Users/lili/.m2/repository/org/slf4j/slf4j-api/1.7.6/slf4j-api-1.7.6-sources.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.7.6.jar"/>
 	<classpathentry kind="lib" path="lib/webmagic-core-0.6.1-SNAPSHOT.jar" sourcepath="lib/webmagic-core-0.5.2-sources.jar"/>
 	<classpathentry kind="lib" path="lib/webmagic-extension-0.6.1-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib/xsoup-0.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.46-bin.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.46.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
